@@ -22,6 +22,7 @@ const createController = ( controllerId, cameraGroup, renderer ) => {
     // TRIGGER
     controller.addEventListener( 'selectstart', () => { cylinderMaterial.color.set( 0xff0000 ) } );
     controller.addEventListener( 'selectend', () => { cylinderMaterial.color.set( 0xffff00 ) } );
+    return controller;
 }
 
 const createRenderer = () => {
@@ -51,9 +52,14 @@ const createCanvas = (
 
     const renderer = createRenderer();
 
+    const controllers = {
+        left: null,
+        right: null,
+    }
+
     if (useControllers) {
-        createController(0, cameraGroup, renderer);
-        createController(1, cameraGroup, renderer);
+        controllers.left = createController(0, cameraGroup, renderer);
+        controllers.right = createController(1, cameraGroup, renderer);
     }
 
     let lastTimeMsec = null
@@ -96,6 +102,7 @@ const createCanvas = (
                 delete animationLoops[uuid];
             }
         },
+        controllers,
         listItems,
     };
 }

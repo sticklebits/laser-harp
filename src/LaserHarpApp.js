@@ -32,6 +32,7 @@ const App = () => {
             loadObject,
             addAnimationLoop,
             listItems,
+            controllers,
         }
     ) => {
 
@@ -86,12 +87,18 @@ const App = () => {
         scene.add(torus)
 
         addAnimationLoop(({ now }) => {
-            const gAngle	= 0.1 * Math.PI * 2 * now
-            const angle = Math.cos(gAngle)*Math.PI/15 + 3*Math.PI/2
-            const radius	= 30
-            torus.position.x	= Math.cos(angle)*radius
-            torus.position.y	= (radius) + Math.sin(angle)*radius
-            torus.position.z	= 0.1
+            if (controllers.right) {
+                torus.position.x = controllers.right.position.x;
+                torus.position.y = controllers.right.position.y;
+                torus.position.z = controllers.right.position.z;
+            } else {
+                const gAngle	= 0.1 * Math.PI * 2 * now
+                const angle = Math.cos(gAngle)*Math.PI/15 + 3*Math.PI/2
+                const radius	= 30
+                torus.position.x	= Math.cos(angle)*radius
+                torus.position.y	= (radius) + Math.sin(angle)*radius
+                torus.position.z	= -5.1
+            }
         })
 
         // Audio Context
@@ -125,7 +132,6 @@ const App = () => {
         for(let i = 0; i < numberOfLasers; i++){
             (() => {
                 const laserBeam	= LaserBeam()
-                console.log(laserBeam.children[0])
                 scene.add(laserBeam)
                 const iLaser = new InteractiveLaser(laserBeam, scene, (isBroken) => {
                     notePlay(i, !isBroken)
@@ -138,6 +144,7 @@ const App = () => {
                 })
                 laserBeam.position.x	= (i-numberOfLasers/2)/4
                 laserBeam.position.y	= -4
+                laserBeam.position.z    = -5;
                 laserBeam.rotation.z	= Math.PI/2 + ((i - (numberOfLasers / 2)) * -0.04);
             })()
         }
