@@ -55,42 +55,6 @@ const App = () => {
         //     scene.add(tardis);
         // });
 
-        // You need hands!
-        loadObject('left_hand/scene.gltf', hand => {
-            const leftHand = hand.children[0].children[0].children[0].children[0]
-            leftHand.scale.x = 0.2;
-            leftHand.scale.y = 0.2;
-            leftHand.scale.z = 0.2;
-            scene.add(leftHand);
-
-            addAnimationLoop(({ now }) => {
-                if (controllers.left) {
-                    leftHand.position.x = controllers.left.position.x;
-                    leftHand.position.y = controllers.left.position.y;
-                    leftHand.position.z = controllers.left.position.z;
-                    leftHand.rotation.x = controllers.left.rotation.x;
-                    leftHand.rotation.y = controllers.left.rotation.y;
-                    leftHand.rotation.z = controllers.left.rotation.z;
-                }})
-        });
-
-        loadObject('right_hand/scene.gltf', rightHand => {
-            rightHand.scale.x = 0.005;
-            rightHand.scale.y = 0.005;
-            rightHand.scale.z = 0.005;
-            scene.add(rightHand);
-
-            addAnimationLoop(({ now }) => {
-                if (controllers.right) {
-                    rightHand.position.x = controllers.right.position.x;
-                    rightHand.position.y = controllers.right.position.y;
-                    rightHand.position.z = controllers.right.position.z;
-                    rightHand.rotation.x = controllers.right.rotation.x;
-                    rightHand.rotation.y = controllers.right.rotation.y;
-                    rightHand.rotation.z = controllers.right.rotation.z;
-                }})
-        });
-
         camera.position.z = 10;
 
         const mainLight	= new THREE.HemisphereLight( 0x00ff00, 0x101020, 0.2 )
@@ -111,16 +75,39 @@ const App = () => {
         // scene.add(boundingBox)
 
         // Swinging Taurus
-
         const torusGeometry	= new THREE.TorusGeometry(0.1, 0.1, 32, 32);
         const torusMaterial	= new THREE.MeshPhongMaterial({
             color	: 0xffffff,
             specular: 0xffffff,
             shininess: 200,
         });
-        const torus	= new THREE.Mesh( torusGeometry, torusMaterial )
-        torus.scale.set(0.2,0.2,0.2).multiplyScalar(5)
-        // scene.add(torus)
+        const leftTorus	= new THREE.Mesh( torusGeometry, torusMaterial )
+        leftTorus.scale.set(0.1,0.05,0.1).multiplyScalar(5)
+        scene.add(leftTorus)
+        addAnimationLoop(({ now }) => {
+            if (controllers.right) {
+                leftTorus.position.x = controllers.left.position.x;
+                leftTorus.position.y = controllers.left.position.y;
+                leftTorus.position.z = controllers.left.position.z;
+                leftTorus.rotation.x = controllers.left.rotation.x;
+                leftTorus.rotation.y = controllers.left.rotation.y;
+                leftTorus.rotation.z = controllers.left.rotation.z;
+            }
+        })
+
+        const rightTorus = new THREE.Mesh( torusGeometry, torusMaterial )
+        rightTorus.scale.set(0.1,0.05,0.1).multiplyScalar(5)
+        scene.add(rightTorus)
+        addAnimationLoop(({ now }) => {
+            if (controllers.right) {
+                rightTorus.position.x = controllers.right.position.x;
+                rightTorus.position.y = controllers.right.position.y;
+                rightTorus.position.z = controllers.right.position.z;
+                rightTorus.rotation.x = controllers.right.rotation.x;
+                rightTorus.rotation.y = controllers.right.rotation.y;
+                rightTorus.rotation.z = controllers.right.rotation.z;
+            }
+        })
 
         // addAnimationLoop(({ now }) => {
         //     if (controllers.right) {
