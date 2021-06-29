@@ -91,6 +91,9 @@ const App = () => {
                 torus.position.x = controllers.right.position.x;
                 torus.position.y = controllers.right.position.y;
                 torus.position.z = controllers.right.position.z;
+                torus.rotation.x = controllers.right.rotation.x;
+                torus.rotation.y = controllers.right.rotation.y;
+                torus.rotation.z = controllers.right.rotation.z;
             } else {
                 const gAngle	= 0.1 * Math.PI * 2 * now
                 const angle = Math.cos(gAngle)*Math.PI/15 + 3*Math.PI/2
@@ -142,9 +145,9 @@ const App = () => {
                     laserBeam.children[1].material.color.g = Math.min(1, Math.max(0.2, Math.random()))
                     laserBeam.children[0].material.color.g = Math.min(1, Math.max(0.2, Math.random()))
                 })
-                laserBeam.position.x	= (i-numberOfLasers/2)/4
+                laserBeam.position.x	= (i-numberOfLasers/2)/6
                 laserBeam.position.y	= -4
-                laserBeam.position.z    = -5;
+                laserBeam.position.z    = -1;
                 laserBeam.rotation.z	= Math.PI/2 + ((i - (numberOfLasers / 2)) * -0.04);
             })()
         }

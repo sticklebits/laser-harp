@@ -5,7 +5,7 @@ const generateLaserBodyCanvas = () => {
     var canvas	= document.createElement( 'canvas' );
     var context	= canvas.getContext( '2d' );
     canvas.width	= 1;
-    canvas.height	= 64;
+    canvas.height	= 200;
     // set gradient
     var gradient	= context.createLinearGradient(0, 0, canvas.width, canvas.height);
     gradient.addColorStop( 0  , 'rgba(  0,  0,  0,0.1)' );
@@ -35,7 +35,7 @@ const LaserBeam = () => {
         depthWrite	: false,
         transparent	: true
     })
-    const geometry	= new THREE.PlaneGeometry(1, 0.1)
+    const geometry	= new THREE.PlaneGeometry(1, 0.01)
     const nPlanes	= 2;
     for(var i = 0; i < nPlanes; i++){
         var mesh	= new THREE.Mesh(geometry, material)
