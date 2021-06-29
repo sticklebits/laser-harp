@@ -18,10 +18,10 @@ const InteractiveLaser = function(laserBeam, scene, onBreak){
         blending	: THREE.AdditiveBlending,
     })
     var sprite	= new THREE.Sprite(material)
-    sprite.scale.x = 0.1
-    sprite.scale.y = 0.5;
+    sprite.scale.x = 0.01
+    sprite.scale.y = 0.05;
     sprite.rotation.x = 0.5;
-    sprite.position.x	= 1-0.01;
+    sprite.position.x	= 1;
     laserBeam.add(sprite)
 
     // add a point light

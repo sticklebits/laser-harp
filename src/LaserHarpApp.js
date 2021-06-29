@@ -55,7 +55,7 @@ const App = () => {
         //     scene.add(tardis);
         // });
 
-        camera.position.z = 10;
+        camera.position.z = 5;
 
         const mainLight	= new THREE.HemisphereLight( 0x00ff00, 0x101020, 0.2 )
         mainLight.position.set( 0.75, 1, 0.25 )
@@ -90,7 +90,7 @@ const App = () => {
                 leftTorus.position.y = controllers.left.position.y;
                 leftTorus.position.z = controllers.left.position.z;
                 leftTorus.rotation.x = controllers.left.rotation.x;
-                leftTorus.rotation.y = controllers.left.rotation.y;
+                leftTorus.rotation.y = controllers.left.rotation.y + (Math.PI / 2);
                 leftTorus.rotation.z = controllers.left.rotation.z;
             }
         })
@@ -104,7 +104,7 @@ const App = () => {
                 rightTorus.position.y = controllers.right.position.y;
                 rightTorus.position.z = controllers.right.position.z;
                 rightTorus.rotation.x = controllers.right.rotation.x;
-                rightTorus.rotation.y = controllers.right.rotation.y;
+                rightTorus.rotation.y = controllers.right.rotation.y + (Math.PI / 2);
                 rightTorus.rotation.z = controllers.right.rotation.z;
             }
         })
@@ -130,20 +130,36 @@ const App = () => {
         // Audio Context
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         const context = new AudioContext();
+        //
+        // const notes = {
+        //     0: { freq: 261.626, node: createNode(context) },
+        //     1: { freq: 277.183, node: createNode(context) },
+        //     2: { freq: 293.665, node: createNode(context) },
+        //     3: {freq: 311.127, node: createNode(context) },
+        //     4: {freq: 329.628, node: createNode(context) },
+        //     5: {freq: 349.228, node: createNode(context) },
+        //     6: {freq: 369.994, node: createNode(context) },
+        //     7: {freq: 391.995, node: createNode(context) },
+        //     8: {freq: 415.305, node: createNode(context) },
+        //     9: {freq: 440.000, node: createNode(context) },
+        //     10: {freq: 466.164, node: createNode(context) },
+        //     11: {freq: 493.883, node: createNode(context) },
+        // }
 
         const notes = {
             0: { freq: 261.626, node: createNode(context) },
-            1: { freq: 277.183, node: createNode(context) },
-            2: { freq: 293.665, node: createNode(context) },
-            3: {freq: 311.127, node: createNode(context) },
-            4: {freq: 329.628, node: createNode(context) },
-            5: {freq: 349.228, node: createNode(context) },
-            6: {freq: 369.994, node: createNode(context) },
-            7: {freq: 391.995, node: createNode(context) },
-            8: {freq: 415.305, node: createNode(context) },
-            9: {freq: 440.000, node: createNode(context) },
-            10: {freq: 466.164, node: createNode(context) },
-            11: {freq: 493.883, node: createNode(context) },
+            1: { freq: 293.665, node: createNode(context) },
+            2: {freq: 329.628, node: createNode(context) },
+            3: {freq: 349.228, node: createNode(context) },
+            4: {freq: 391.995, node: createNode(context) },
+            5: {freq: 440.000, node: createNode(context) },
+            6: {freq: 493.883, node: createNode(context) },
+
+            7: { freq: 261.626 * 2, node: createNode(context) },
+            8: { freq: 293.665 * 2, node: createNode(context) },
+            9: {freq: 329.628 * 2, node: createNode(context) },
+            10: {freq: 349.228 * 2, node: createNode(context) },
+            11: {freq: 391.995 * 2, node: createNode(context) },
         }
 
         const notePlay = (index, isOff) => {
@@ -168,10 +184,10 @@ const App = () => {
                     laserBeam.children[1].material.color.g = Math.min(1, Math.max(0.2, Math.random()))
                     laserBeam.children[0].material.color.g = Math.min(1, Math.max(0.2, Math.random()))
                 })
-                laserBeam.position.x	= (i-numberOfLasers/2)/8
+                laserBeam.position.x	= (i-numberOfLasers/2)/12
                 laserBeam.position.y	= -4
                 laserBeam.position.z    = -1;
-                laserBeam.rotation.z	= Math.PI/2 + ((i - (numberOfLasers / 2)) * -0.02);
+                laserBeam.rotation.z	= Math.PI/2 + ((i - (numberOfLasers / 2)) * -0.01);
             })()
         }
 
