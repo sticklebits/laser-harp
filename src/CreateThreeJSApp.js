@@ -16,7 +16,7 @@ const createController = ( controllerId, cameraGroup, renderer ) => {
     const cylinder = new THREE.Mesh( cylinderGeometry, cylinderMaterial );
     cylinder.geometry.translate( 0, 0.5, 0 );
     cylinder.rotateX( - 0.25 * Math.PI );
-    controller.add( cylinder );
+    // controller.add( cylinder );
     cameraGroup.add( controller );
 
     // TRIGGER

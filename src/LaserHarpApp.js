@@ -48,11 +48,47 @@ const App = () => {
             camera.lookAt( scene.position )
         })
 
-        // A familiar object in the background ;)
-        loadObject('tardis/scene.gltf', tardis => {
-            tardis.position.z = -20;
-            tardis.rotation.y = -0.4;
-            scene.add(tardis);
+        // // A familiar object in the background ;)
+        // loadObject('tardis/scene.gltf', tardis => {
+        //     tardis.position.z = -20;
+        //     tardis.rotation.y = -0.4;
+        //     scene.add(tardis);
+        // });
+
+        // You need hands!
+        loadObject('left_hand/scene.gltf', hand => {
+            const leftHand = hand.children[0].children[0].children[0].children[0]
+            leftHand.scale.x = 0.2;
+            leftHand.scale.y = 0.2;
+            leftHand.scale.z = 0.2;
+            scene.add(leftHand);
+
+            addAnimationLoop(({ now }) => {
+                if (controllers.left) {
+                    leftHand.position.x = controllers.left.position.x;
+                    leftHand.position.y = controllers.left.position.y;
+                    leftHand.position.z = controllers.left.position.z;
+                    leftHand.rotation.x = controllers.left.rotation.x;
+                    leftHand.rotation.y = controllers.left.rotation.y;
+                    leftHand.rotation.z = controllers.left.rotation.z;
+                }})
+        });
+
+        loadObject('right_hand/scene.gltf', rightHand => {
+            rightHand.scale.x = 0.005;
+            rightHand.scale.y = 0.005;
+            rightHand.scale.z = 0.005;
+            scene.add(rightHand);
+
+            addAnimationLoop(({ now }) => {
+                if (controllers.right) {
+                    rightHand.position.x = controllers.right.position.x;
+                    rightHand.position.y = controllers.right.position.y;
+                    rightHand.position.z = controllers.right.position.z;
+                    rightHand.rotation.x = controllers.right.rotation.x;
+                    rightHand.rotation.y = controllers.right.rotation.y;
+                    rightHand.rotation.z = controllers.right.rotation.z;
+                }})
         });
 
         camera.position.z = 10;
@@ -84,25 +120,25 @@ const App = () => {
         });
         const torus	= new THREE.Mesh( torusGeometry, torusMaterial )
         torus.scale.set(0.2,0.2,0.2).multiplyScalar(5)
-        scene.add(torus)
+        // scene.add(torus)
 
-        addAnimationLoop(({ now }) => {
-            if (controllers.right) {
-                torus.position.x = controllers.right.position.x;
-                torus.position.y = controllers.right.position.y;
-                torus.position.z = controllers.right.position.z;
-                torus.rotation.x = controllers.right.rotation.x;
-                torus.rotation.y = controllers.right.rotation.y;
-                torus.rotation.z = controllers.right.rotation.z;
-            } else {
-                const gAngle	= 0.1 * Math.PI * 2 * now
-                const angle = Math.cos(gAngle)*Math.PI/15 + 3*Math.PI/2
-                const radius	= 30
-                torus.position.x	= Math.cos(angle)*radius
-                torus.position.y	= (radius) + Math.sin(angle)*radius
-                torus.position.z	= -5.1
-            }
-        })
+        // addAnimationLoop(({ now }) => {
+        //     if (controllers.right) {
+        //         torus.position.x = controllers.right.position.x;
+        //         torus.position.y = controllers.right.position.y;
+        //         torus.position.z = controllers.right.position.z;
+        //         torus.rotation.x = controllers.right.rotation.x;
+        //         torus.rotation.y = controllers.right.rotation.y;
+        //         torus.rotation.z = controllers.right.rotation.z;
+        //     } else {
+        //         const gAngle	= 0.1 * Math.PI * 2 * now
+        //         const angle = Math.cos(gAngle)*Math.PI/15 + 3*Math.PI/2
+        //         const radius	= 30
+        //         torus.position.x	= Math.cos(angle)*radius
+        //         torus.position.y	= (radius) + Math.sin(angle)*radius
+        //         torus.position.z	= -5.1
+        //     }
+        // })
 
         // Audio Context
         const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -145,10 +181,10 @@ const App = () => {
                     laserBeam.children[1].material.color.g = Math.min(1, Math.max(0.2, Math.random()))
                     laserBeam.children[0].material.color.g = Math.min(1, Math.max(0.2, Math.random()))
                 })
-                laserBeam.position.x	= (i-numberOfLasers/2)/6
+                laserBeam.position.x	= (i-numberOfLasers/2)/8
                 laserBeam.position.y	= -4
                 laserBeam.position.z    = -1;
-                laserBeam.rotation.z	= Math.PI/2 + ((i - (numberOfLasers / 2)) * -0.04);
+                laserBeam.rotation.z	= Math.PI/2 + ((i - (numberOfLasers / 2)) * -0.02);
             })()
         }
 
