@@ -2,7 +2,7 @@ import * as THREE from 'https://cdn.skypack.dev/three';
 
 const InteractiveLaser = function(laserBeam, scene, onBreak){
     // for update loop
-    const baseURL = '../';
+    const baseURL = 'https://sticklebits.github.io/laser-harp/';
     const updateFcts = []
     this.update	= function(){
         updateFcts.forEach(function(updateFct){
