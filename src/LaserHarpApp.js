@@ -83,7 +83,7 @@ const App = () => {
         });
         const torus	= new THREE.Mesh( torusGeometry, torusMaterial )
         torus.scale.set(0.2,0.2,0.2).multiplyScalar(5)
-        // scene.add(torus)
+        scene.add(torus)
 
         addAnimationLoop(({ now }) => {
             const gAngle	= 0.1 * Math.PI * 2 * now
